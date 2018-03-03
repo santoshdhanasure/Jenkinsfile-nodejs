@@ -36,7 +36,7 @@ pipeline{
         https_proxy    = 'http://DSZ-Proxy.wipro.com:8080'
     }
     
-    def env = "prod"
+    
     
     stages{
         
@@ -48,6 +48,8 @@ pipeline{
         }
         
         stage("Set environmental variables"){
+            def env="prod"
+            
             steps{
             
                 switch(env){
