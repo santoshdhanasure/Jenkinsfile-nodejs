@@ -28,7 +28,7 @@ pipeline{
      //   }
       //  parameter{        
       //      string(name: 'PERSON2', defaultValue: 'Mr Jenkins 2', description: 'Who should I say hello to?')
-        //}
+        ////}
     //}
     
     environment {
