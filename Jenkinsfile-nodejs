@@ -11,7 +11,7 @@ pipeline{
     agent any
 
     //parameters {
-    //    string(name: 'http_proxy', defaultValue: 'http://DSZ-Proxy.wipro.com:8080'),
+    //string(name: 'http_proxy', defaultValue: 'http://DSZ-Proxy.wipro.com:8080'),
     ///////    string(name: 'https_proxy', defaultValue: 'http://DSZ-Proxy.wipro.com:8080')
     //////////}
     
