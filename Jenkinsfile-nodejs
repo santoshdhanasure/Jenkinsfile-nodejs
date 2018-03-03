@@ -43,7 +43,7 @@ pipeline{
         stage("Checkout from git"){
             steps {
                 echo "in this checkout section"
-                git changelog: false, credentialsId: '23246b8a-5a3e-46eb-b834-3c1b7ed5c5f5', poll: false, url: 'http://wosggitlab.wipro.com/SA378776/nodehelloworld.git'
+                git credentialsId: 'f542cd34-1023-476f-8ad5-ba995e47d784', url: 'https://github.com/santoshdhanasure/Jenkinsfiles.git'
             }
         }
         
