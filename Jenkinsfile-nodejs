@@ -36,6 +36,8 @@ pipeline{
         https_proxy    = 'http://DSZ-Proxy.wipro.com:8080'
     }
     
+    def env = "prod"
+    
     stages{
         
         stage("Checkout from git"){
@@ -47,12 +49,20 @@ pipeline{
         
         stage("Set environmental variables"){
             steps{
-                echo "IN environmental variables ${env.http_proxy}"    
-                withEnv(["HTTP_PROXY=${env.http_proxy}", "HTTPS_PROXY=${env.https_proxy}"]){
-                    sh "npm config set proxy $HTTP_PROXY"
-                    sh "npm config set https-proxy $HTTPS_PROXY"
-                    sh "npm install"
-                    sh "chmod -R a+rwx node_modules"
+            
+                switch(env){
+                
+                    case "dev":
+                        echo "IN environmental variables ${env.http_proxy}"    
+
+                        withEnv(["HTTP_PROXY=${env.http_proxy}", "HTTPS_PROXY=${env.https_proxy}"]){
+                            sh "npm config set proxy $HTTP_PROXY"
+                            sh "npm config set https-proxy $HTTPS_PROXY"
+                            sh "npm install"
+                            sh "chmod -R a+rwx node_modules"
+                        }
+                    case "prod":
+                        echo "In prod section"
                 }
             }
         }
