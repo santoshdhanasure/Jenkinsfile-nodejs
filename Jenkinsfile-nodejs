@@ -1,0 +1,80 @@
+!/usr/bin/env groovy
+
+import hudson.model.*
+import hudson.EnvVars
+import groovy.json.JsonSlurperClassic
+import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
+import java.net.URL
+
+pipeline{
+    agent any
+
+    //parameters {
+    //    string(name: 'http_proxy', defaultValue: 'http://DSZ-Proxy.wipro.com:8080'),
+    ///////    string(name: 'https_proxy', defaultValue: 'http://DSZ-Proxy.wipro.com:8080')
+    //////////}
+    
+    //define {
+        
+    //    def http_proxy="http://DSZ-Proxy.wipro.com:8080"
+    //    def https_proxy="http://DSZ-Proxy.wipro.com:8080"
+    //}
+    
+    //parameters {
+        
+    //    parameter{
+     //       string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?'),    
+     //   }
+      //  parameter{        
+      //      string(name: 'PERSON2', defaultValue: 'Mr Jenkins 2', description: 'Who should I say hello to?')
+        //}
+    //}
+    
+    environment {
+        http_proxy = 'http://DSZ-Proxy.wipro.com:8080'
+        https_proxy    = 'http://DSZ-Proxy.wipro.com:8080'
+    }
+    
+    stages{
+        
+        stage("Checkout from git"){
+            steps {
+                echo "in this checkout section"
+                git changelog: false, credentialsId: '23246b8a-5a3e-46eb-b834-3c1b7ed5c5f5', poll: false, url: 'http://wosggitlab.wipro.com/SA378776/nodehelloworld.git'
+            }
+        }
+        
+        stage("Set environmental variables"){
+            steps{
+                echo "IN environmental variables ${env.http_proxy}"    
+                withEnv(["HTTP_PROXY=${env.http_proxy}", "HTTPS_PROXY=${env.https_proxy}"]){
+                    sh "npm config set proxy $HTTP_PROXY"
+                    sh "npm config set https-proxy $HTTPS_PROXY"
+                    sh "npm install"
+                    sh "chmod -R a+rwx node_modules"
+                }
+            }
+        }
+        
+        stage("Run npm task in the background"){
+            
+            steps{
+                sh "npm start"
+                sh "npm stop"
+                sh "npm start"
+            }
+        }
+        
+        //stage("Print workspace"){
+            
+        //    steps{
+                
+                //sh pwd
+                
+        //        sh "find / -name 'mvn'"
+                
+         //   }
+        //}
+    }
+}
