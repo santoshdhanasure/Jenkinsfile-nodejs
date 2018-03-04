@@ -48,7 +48,7 @@ pipeline{
             }
         }
         
-        stage("Deploy ${deployTo}"){
+        stage("Deploy QA"){
             
                     when{
                         environment name: 'deployTo', value: 'qa'
@@ -64,7 +64,7 @@ pipeline{
                     }
         }
 
-        stage("Deploy ${deployTo}"){
+        stage("Deploy Production"){
 
                     when{
                         environment name: 'deployTo', value: 'prod'
