@@ -61,11 +61,8 @@ pipeline{
                                     sh "npm install"
                                     sh "chmod -R a+rwx node_modules"
                                 }
-                                echo "In prod section"
-                                sh "npm install"
-                                sh "chmod -R a+rwx node_modules"
-                        }
                     }
+                    
         
                     when{
                         environment name: 'deployTo', value: 'prod'
@@ -74,9 +71,7 @@ pipeline{
                                 echo "In prod section"
                                 sh "npm install"
                                 sh "chmod -R a+rwx node_modules"
-                        }
                     }
-    
         }
         
         stage("Run npm task in the background"){
