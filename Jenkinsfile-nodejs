@@ -48,7 +48,7 @@ pipeline{
             }
         }
         
-        stage("Set environmental variables"){
+        stage("Deploy"){
             
                     when{
                         environment name: 'deployTo', value: 'qa'
@@ -62,8 +62,10 @@ pipeline{
                                     sh "chmod -R a+rwx node_modules"
                                 }
                     }
-                    
-        
+        }
+
+        stage("Deploy"){
+
                     when{
                         environment name: 'deployTo', value: 'prod'
                     }
@@ -73,6 +75,7 @@ pipeline{
                                 sh "chmod -R a+rwx node_modules"
                     }
         }
+
         
         stage("Run npm task in the background"){
             
