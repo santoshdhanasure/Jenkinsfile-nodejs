@@ -50,7 +50,7 @@ pipeline{
         }
         
         stage("Set environmental variables"){
-           // def env="prod"
+            def deployTo="prod"
             
             steps{
             
