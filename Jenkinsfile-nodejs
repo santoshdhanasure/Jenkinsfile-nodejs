@@ -79,7 +79,7 @@ pipeline{
             steps{
                 sh "npm start"
                 sh "npm stop"
-                sh "npm start"
+               // sh "npm start"
             }
         }
         
