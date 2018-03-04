@@ -36,6 +36,7 @@ pipeline{
     environment {
         http_proxy = 'http://DSZ-Proxy.wipro.com:8080'
         https_proxy    = 'http://DSZ-Proxy.wipro.com:8080'
+        deployTo = "prod" 
     }
     
     
@@ -50,10 +51,15 @@ pipeline{
         }
         
         stage("Set environmental variables"){
-            def deployTo="prod"
+            //def deployTo="prod"
             
             steps{
             
+                 echo "${deployTo}"
+                
+                //switch(${deployTo}){
+                
+                //}
                 //switch(env){
                 
                ///     case "dev":
