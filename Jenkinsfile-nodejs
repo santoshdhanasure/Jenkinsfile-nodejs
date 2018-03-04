@@ -8,7 +8,9 @@ import groovy.json.JsonOutput
 import java.net.URL
 
 pipeline{
-    agent any
+    agent {
+        label 'nodejs'
+    }
 
     //parameters {
     ////string(name: 'http_proxy', defaultValue: 'http://DSZ-Proxy.wipro.com:8080'),
