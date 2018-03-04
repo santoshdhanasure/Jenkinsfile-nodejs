@@ -12,6 +12,10 @@ pipeline{
         label 'nodejs'
     }
 
+    parameters{
+        string(name: 'deployEnv', defaultValue: 'prod')
+    }
+    
     //parameters {
     ////string(name: 'http_proxy', defaultValue: 'http://DSZ-Proxy.wipro.com:8080'),
     //string(name: 'https_proxy', defaultValue: 'http://DSZ-Proxy.wipro.com:8080')
@@ -36,7 +40,7 @@ pipeline{
     environment {
         http_proxy = 'http://DSZ-Proxy.wipro.com:8080'
         https_proxy    = 'http://DSZ-Proxy.wipro.com:8080'
-        deployTo = "prod" 
+        deployTo = "${params.deployEnv}" 
     }
     
     stages{
