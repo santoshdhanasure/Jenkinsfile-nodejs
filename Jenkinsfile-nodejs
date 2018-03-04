@@ -51,20 +51,10 @@ pipeline{
         }
         
         stage("Set environmental variables"){
-            //def deployTo="prod"
-            
-            steps{
-            
-                 echo "${deployTo}"
-                
-                //switch(${deployTo}){
-                
-               //}
-                
+//            steps{
                switch(${deployTo}){
-
                    case "dev":
-                       
+                   steps{
                        echo "IN environmental variables ${env.http_proxy}"    
                        withEnv(["HTTP_PROXY=${env.http_proxy}", "HTTPS_PROXY=${env.https_proxy}"]){
                             sh "npm config set proxy $HTTP_PROXY"
@@ -72,14 +62,15 @@ pipeline{
                             sh "npm install"
                             sh "chmod -R a+rwx node_modules"
                         }
-                   
+                   }
                     case "prod":
-                   
+                   steps{
                         echo "In prod section"
                         sh "npm install"
                         sh "chmod -R a+rwx node_modules"
+                   }
                 }
-            }
+  //          }
         }
         
         stage("Run npm task in the background"){
