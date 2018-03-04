@@ -39,8 +39,6 @@ pipeline{
         deployTo = "prod" 
     }
     
-    
-    
     stages{
         
         stage("Checkout from git"){
@@ -51,26 +49,34 @@ pipeline{
         }
         
         stage("Set environmental variables"){
-//            steps{
-               switch(${deployTo}){
-                   case "dev":
-                   steps{
-                       echo "IN environmental variables ${env.http_proxy}"    
-                       withEnv(["HTTP_PROXY=${env.http_proxy}", "HTTPS_PROXY=${env.https_proxy}"]){
-                            sh "npm config set proxy $HTTP_PROXY"
-                            sh "npm config set https-proxy $HTTPS_PROXY"
-                            sh "npm install"
-                            sh "chmod -R a+rwx node_modules"
+            
+                    when{
+                        environment name: 'deployTo', value: 'qa'
+                    }
+                    steps{
+                               echo "IN environmental variables ${env.http_proxy}"    
+                               withEnv(["HTTP_PROXY=${env.http_proxy}", "HTTPS_PROXY=${env.https_proxy}"]){
+                                    sh "npm config set proxy $HTTP_PROXY"
+                                    sh "npm config set https-proxy $HTTPS_PROXY"
+                                    sh "npm install"
+                                    sh "chmod -R a+rwx node_modules"
+                                }
+                                echo "In prod section"
+                                sh "npm install"
+                                sh "chmod -R a+rwx node_modules"
                         }
-                   }
-                    case "prod":
-                   steps{
-                        echo "In prod section"
-                        sh "npm install"
-                        sh "chmod -R a+rwx node_modules"
-                   }
-                }
-  //          }
+                    }
+        
+                    when{
+                        environment name: 'deployTo', value: 'prod'
+                    }
+                    steps{
+                                echo "In prod section"
+                                sh "npm install"
+                                sh "chmod -R a+rwx node_modules"
+                        }
+                    }
+    
         }
         
         stage("Run npm task in the background"){
