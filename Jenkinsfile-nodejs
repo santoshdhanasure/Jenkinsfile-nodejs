@@ -50,7 +50,8 @@ pipeline{
         
         stage("Checking out global variables"){
             steps{
-                scm "test"
+                //scm "test"
+                echo "In the global variables section"
             }
         }
         
