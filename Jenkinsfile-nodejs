@@ -7,6 +7,9 @@ import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
 import java.net.URL
 
+Library("sharedlib")_
+
+
 pipeline{
     agent {
         label 'nodejs'
@@ -44,6 +47,11 @@ pipeline{
     }
     
     stages{
+        
+        stage("Checking out global variables"){
+        
+                scm "test"
+        }
         
         stage("Checkout from git"){
             steps {
