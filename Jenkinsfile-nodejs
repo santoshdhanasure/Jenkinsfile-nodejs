@@ -52,7 +52,7 @@ pipeline{
             steps{
                 //scm "test"
                 echo "In the global variables section"
-                scm "test"
+                scmCheck "test"
             }
         }
         
