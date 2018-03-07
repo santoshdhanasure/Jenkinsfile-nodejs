@@ -8,7 +8,7 @@ import groovy.json.JsonOutput
 import java.net.URL
 
 @Library("sharedlib")_
-
+import org.wipro.Utilities
 
 pipeline{
     agent {
@@ -53,6 +53,7 @@ pipeline{
                 //scm "test"
                 echo "In the global variables section"
                 scmCheck "test"
+                mavan
             }
         }
         
