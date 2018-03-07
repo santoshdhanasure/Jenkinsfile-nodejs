@@ -49,8 +49,9 @@ pipeline{
     stages{
         
         stage("Checking out global variables"){
-        
+            steps{
                 scm "test"
+            }
         }
         
         stage("Checkout from git"){
