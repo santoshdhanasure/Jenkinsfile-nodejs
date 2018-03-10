@@ -53,7 +53,7 @@ pipeline{
                 //scm "test"
                 echo "In the global variables section"
                 scmCheck "test"
-                mavan
+                mvn
             }
         }
         
